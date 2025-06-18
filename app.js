@@ -17,7 +17,7 @@ async function checkNotion() {
       sorts: [{ property: "Created time", direction: "descending" }],
       page_size: 10,
     });
-    console.log(response.results[0]?.properties);
+    // console.log(response.results[0]?.properties);
     const newItems = response.results.filter(
       (item) => new Date(item.created_time) > new Date(lastChecked)
     );
@@ -36,7 +36,7 @@ async function checkNotion() {
       });
       const fullMessage = `New Update in Notion ${today} :\n${messages.join("\n")}`;
       console.log(fullMessage);
-      await sendLineMessage(fullMessage);
+      // await sendLineMessage(fullMessage);
 
       lastChecked = newItems[0].created_time;
     }
