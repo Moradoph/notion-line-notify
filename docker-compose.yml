@@ -1,0 +1,10 @@
+# docker-compose.yml
+version: '3'
+services:
+  ngrok:
+    image: ngrok/ngrok:latest
+    ports:
+      - "4040:4040"
+    volumes:
+      - ./ngrok.yml:/etc/ngrok.yml
+    command: start --config /etc/ngrok.yml http3000
