@@ -21,7 +21,9 @@ app.get("/", (req, res) => {
 app.get("/wakeup", async (req, res) => {
   await checkNotion();
   console.log("Checked Notion at " + new Date().toISOString());
-  res.send("Checked Notion at " + new Date().toISOString());
+  res.send({
+    "LastChecked": new Date().toISOString()
+  });
 });
 
 async function checkNotion() {
@@ -90,7 +92,7 @@ async function sendLineMessage(message) {
   }
 }
 
-cron.schedule("30 8 * * *", () => {
+cron.schedule("30 18 * * *", () => {
   checkNotion();
 }, {
   timezone: "Asia/Bangkok"  // ← ใช้ timezone ของไทย
