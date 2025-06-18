@@ -15,12 +15,12 @@ const targetId = process.env.LINE_TARGET_ID;
 let lastChecked = new Date(Date.now() - 3000 * 1000).toISOString();
 
 app.get("/", (req, res) => {
+  console.log("Bot is running at " + new Date().toISOString());
   res.send("Bot is running...");
 });
 
 app.get("/wakeup", async (req, res) => {
   await checkNotion();
-  console.log("Checked Notion at " + new Date().toISOString());
   res.send({
     "LastChecked": new Date().toISOString()
   });
