@@ -2,6 +2,7 @@ require("dotenv").config();
 const { Client } = require("@notionhq/client");
 const axios = require("axios");
 const express = require("express");
+const cron = require("node-cron");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -18,11 +19,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/wakeup", async (req, res) => {
-  await checkNotion(); // ทำงานหลัก
+  await checkNotion();
+  console.log("Checked Notion at " + new Date().toISOString());
   res.send("Checked Notion at " + new Date().toISOString());
 });
 
-// Core check logic
 async function checkNotion() {
   try {
     const response = await notion.databases.query({
@@ -88,6 +89,12 @@ async function sendLineMessage(message) {
     );
   }
 }
+
+cron.schedule("8 22 * * *", () => {
+  checkNotion();
+}, {
+  timezone: "Asia/Bangkok"  // ← ใช้ timezone ของไทย
+});
 
 // Start web server
 app.listen(port, () => {
