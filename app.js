@@ -90,7 +90,7 @@ async function sendLineMessage(message) {
   }
 }
 
-cron.schedule("8 22 * * *", () => {
+cron.schedule("30 8 * * *", () => {
   checkNotion();
 }, {
   timezone: "Asia/Bangkok"  // ← ใช้ timezone ของไทย
